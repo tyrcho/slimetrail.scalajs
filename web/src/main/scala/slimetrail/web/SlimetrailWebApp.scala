@@ -8,5 +8,5 @@ final class SlimetrailWebApp(size: Int)
     with WebApplication {
 
   def view(m: GameState): Html[Msg] =
-    ??? // Replace by actual code
+    AnElement(tag = "svg", children = List(ATextNode(m.toString)))
 }

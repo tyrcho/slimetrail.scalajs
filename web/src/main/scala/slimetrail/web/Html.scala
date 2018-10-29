@@ -14,11 +14,11 @@ final case class ATextNode(value: String) extends Html[Nothing] {
 }
 
 final case class AnElement[+A](
-    namespace: String,
+    namespace: String = "",
     tag: String,
-    attributes: Map[(Option[String], String), String],
-    eventListeners: List[(String, js.Function1[_ <: Event, A])],
-    children: List[Html[A]]
+    attributes: Map[(Option[String], String), String] = Map.empty,
+    eventListeners: List[(String, js.Function1[_ <: Event, A])] = Nil,
+    children: List[Html[A]] = Nil
 ) extends Html[A] {
 
   override def render: Node = {

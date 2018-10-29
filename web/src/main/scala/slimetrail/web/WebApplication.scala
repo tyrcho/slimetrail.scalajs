@@ -8,6 +8,8 @@ trait WebApplication extends Application {
 
   def view(model: Model): Html[Msg]
 
-  final def run(initialNode: Node): Unit =
-    ??? // Replace by actual code
+  final def run(initialNode: Node): Unit = {
+    initialNode.appendChild(view(initialModel).render)
+    ()
+  }
 }

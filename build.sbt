@@ -6,7 +6,8 @@ lazy val warts =
   Warts.allBut(
     Wart.Nothing,
     Wart.Recursion,
-    Wart.NonUnitStatements
+    Wart.NonUnitStatements,
+    Wart.DefaultArguments
   )
 
 lazy val splain: ModuleID = "io.tryp" % "splain" % "0.3.4" cross CrossVersion.patch
