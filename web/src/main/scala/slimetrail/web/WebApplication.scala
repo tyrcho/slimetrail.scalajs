@@ -9,7 +9,7 @@ trait WebApplication extends Application {
   def view(model: Model): Html[Msg]
 
   final def run(initialNode: Node): Unit = {
-    initialNode.appendChild(view(initialModel).render)
+    initialNode.parentNode.replaceChild(view(initialModel).render, initialNode)
     ()
   }
 }

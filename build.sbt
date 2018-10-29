@@ -7,6 +7,8 @@ lazy val warts =
     Wart.Nothing,
     Wart.Recursion,
     Wart.NonUnitStatements,
+    Wart.Product,
+    Wart.Serializable,
     Wart.DefaultArguments
   )
 
