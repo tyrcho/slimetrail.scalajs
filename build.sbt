@@ -1,3 +1,6 @@
+// shadow sbt-scalajs' crossProject and CrossType until Scala.js 1.0.0 is released
+import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
+
 // see http://www.wartremover.org/
 lazy val warts =
   Warts.allBut(
@@ -18,7 +21,7 @@ lazy val commonSettings: Seq[sbt.Def.SettingsDefinition] =
         version := "0.1.0-SNAPSHOT"
       )),
     updateOptions := updateOptions.value.withCachedResolution(true),
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % Test,
+    libraryDependencies += "org.scalatest" %%% "scalatest" % "3.0.5" % Test,
     scalacOptions in (Compile, console) -= "-Xfatal-warnings",
     scalacOptions -= "-Ywarn-unused:params",
     wartremoverErrors in (Compile, compile) := warts,
@@ -31,18 +34,27 @@ lazy val commonSettings: Seq[sbt.Def.SettingsDefinition] =
 
 /* Things maybe useful*/
 lazy val toolbox =
-    project
+  crossProject(JSPlatform, JVMPlatform)
+    .crossType(CrossType.Pure)
     .in(file("toolbox"))
     .settings(commonSettings: _*)
     .settings(name := "toolbox")
 
+lazy val toolboxJS = toolbox.js
+lazy val toolboxJVM = toolbox.jvm
+
 /* Game Logic */
 lazy val slimetrail =
-  project
+  crossProject(JSPlatform, JVMPlatform)
+    .crossType(CrossType.Pure)
     .in(file("slimetrail"))
     .settings(commonSettings: _*)
     .settings(name := "slimetrail")
     .dependsOn(toolbox)
+
+lazy val slimetrailJS = slimetrail.js
+lazy val slimetrailJVM = slimetrail.jvm
+
 
 // Text Interface
 lazy val text =
@@ -50,4 +62,4 @@ lazy val text =
     .in(file("text"))
     .settings(commonSettings: _*)
     .settings(name := "slimetrail-text")
-    .dependsOn(slimetrail)
+    .dependsOn(slimetrail.jvm)
