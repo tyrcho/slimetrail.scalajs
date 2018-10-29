@@ -1,8 +1,8 @@
 package slimetrail.web
 
-import org.scalajs.dom._
+import org.scalajs.dom.{Element, Event, Node, document}
+
 import scala.scalajs.js
-import slimetrail._
 
 /** Tree strucure to represent the DOM */
 sealed trait Html[+A] {
@@ -40,33 +40,4 @@ final case class AnElement[+A](
     }
   }
 
-}
-
-/** Generic Web Application */
-trait WebApplication extends Application {
-
-  def view(model: Model): Html[Msg]
-
-  final def run(initialNode: Node): Unit =
-    ??? // Replace by actual code
-}
-
-/** The Slimetrail Web Application */
-final class SlimetrailWebApp(size: Int)
-    extends SlimetrailApp(size)
-    with WebApplication {
-
-  def view(m: GameState): Html[Msg] =
-    ??? // Replace by actual code
-}
-
-object Main {
-  def onLoading(a: => Unit): Unit =
-    document.addEventListener("DOMContentLoaded", (_: Event) => a)
-
-  def main(args: Array[String]): Unit =
-    onLoading {
-      new SlimetrailWebApp(10)
-        .run(document.getElementById("scalajs-controlled-node"))
-    }
 }
