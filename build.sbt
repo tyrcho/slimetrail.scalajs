@@ -63,3 +63,16 @@ lazy val text =
     .settings(commonSettings: _*)
     .settings(name := "slimetrail-text")
     .dependsOn(slimetrail.jvm)
+
+// Web Interface
+lazy val web =
+  project
+    .in(file("web"))
+    .enablePlugins(ScalaJSPlugin)
+    .settings(commonSettings: _*)
+    .settings(
+      name := "slimetrail-web",
+      libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6",
+      scalaJSUseMainModuleInitializer := true
+    )
+    .dependsOn(slimetrailJS)
